@@ -48,6 +48,7 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
             public void onClick(View view) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Are you sure to delete?");
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener(){
                     public void onClick(DialogInterface dialog, int id) {
                         removeItem(holder.getAdapterPosition());
