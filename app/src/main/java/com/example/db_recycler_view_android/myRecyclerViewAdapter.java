@@ -1,6 +1,8 @@
 package com.example.db_recycler_view_android;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -44,9 +46,23 @@ public class myRecyclerViewAdapter extends RecyclerView.Adapter<myRecyclerViewAd
 
             @Override
             public void onClick(View view) {
-                removeItem(holder.getAdapterPosition());
-                DbHelper dbHelper = new DbHelper(context);
-                dbHelper.deleteStudent(holder.data.getId());
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id) {
+                        removeItem(holder.getAdapterPosition());
+                        DbHelper dbHelper = new DbHelper(context);
+                        dbHelper.deleteStudent(holder.data.getId());
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
 
